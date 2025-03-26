@@ -10,10 +10,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long user_id;
 
     @Column(nullable = false)
-    private String name;
+    private String  name;
+    
     @Column(nullable = false)
     private String userName;
     
@@ -29,25 +30,19 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
     private List<Role> roles;
 
-	public Long getId() {
-		return id;
+	public Long getUser_id() {
+		return user_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setUser_id(Long user_id) {
+		this.user_id = user_id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	
 
 	public String getUserName() {
 		return userName;
@@ -96,5 +91,15 @@ public class User {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
    
 }

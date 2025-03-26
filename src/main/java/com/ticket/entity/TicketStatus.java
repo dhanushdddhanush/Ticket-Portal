@@ -5,21 +5,22 @@ import javax.persistence.*;
 public class TicketStatus {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long ticketStatus_id;
 	@Column(nullable=false)
-	private String description;
-	public Long getId() {
-		return id;
+	private String ticketStatus_description;
+	public Long getTicketStatus_id() {
+		return ticketStatus_id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setTicketStatus_id(Long ticketStatus_id) {
+		this.ticketStatus_id = ticketStatus_id;
 	}
-	public String getDescription() {
-		return description;
+	public String getTicketStatus_description() {
+		return ticketStatus_description;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setTicketStatus_description(String ticketStatus_description) {
+		this.ticketStatus_description = ticketStatus_description;
 	}
+	
 	
 
 }

@@ -17,32 +17,44 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "roles_id")
+    private Long roles_id;
+    
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
 	@JsonBackReference
-    private User userId;
+    private User user;
+    
     @Column(nullable = false)
     private String role;
-	public Long getId() {
-		return id;
+    
+    
+    
+    public Role(User user,String role) {
+    	this.user = user;
+    	this.role = role;
+    }
+	public Long getRoles_id() {
+		return roles_id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setRoles_id(Long roles_id) {
+		this.roles_id = roles_id;
 	}
-	public User getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
-	public void setUserId(User userId) {
-		this.userId = userId;
+	public void setUser(User user) {
+		this.user = user;
 	}
+	 public Role() {
+	    }
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
 
 
 }

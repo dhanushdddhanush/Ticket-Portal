@@ -2,110 +2,150 @@ package com.ticket.entity;
 import java.time.LocalDateTime;
 
 import javax.persistence.*;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 @Entity
 @Table(name="ticket")
 public class Ticket {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	@Column(nullable=false, unique=true)
-	private String title;
-	 @Column( nullable=false)
-	 private String description;
-	 @ManyToOne
-	 @JoinColumn(name="priorityId", nullable=false)
-	 private TicketPriority priorityId;
-	 @ManyToOne
-	 @JoinColumn(name="statusId", nullable=false)
-	 private TicketStatus statusId ;
-	 @ManyToOne
-	 @JoinColumn(name="createdBy" , nullable=false)
-	 private User createdBy;
-	 @Column( nullable=false)
-	 private LocalDateTime createdDate;
-	 @Column(name="modifiedDate")
-	 private LocalDateTime modifiedDate;
-	 @ManyToOne
-	 @JoinColumn(name="assignedTo",nullable=false)
-	private User assignedTo;
-	 @Column(nullable=false)
-	 private String comment;
-	 @Column(nullable=false)
-	 private Boolean isDeleted;
-	 @Column(name="deletedData")
-	 private LocalDateTime deletedDate;
-	 
-	 
-	public Long getId() {
-		return id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long ticket_id;
+    
+    @Column(nullable=false)
+    private String ticket_title;
+    
+    @Column(nullable=false)
+    private String ticket_description;
+    
+    @ManyToOne
+    @JoinColumn(name="priorityId", nullable=false)
+    private TicketPriority ticket_priority;
+    
+    @ManyToOne
+    @JoinColumn(name="statusId", nullable=false)
+    private TicketStatus ticket_status;
+    
+    @ManyToOne
+    @JoinColumn(name="createdBy", nullable=false)
+    private User ticket_createdBy;
+    
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime ticket_createdDate = LocalDateTime.now();
+    
+
+    @Column(name="modifiedDate", nullable=true)
+    private LocalDateTime ticket_modifiedDate;
+    
+    @ManyToOne
+    @JoinColumn(name="assignedTo", nullable=false)
+    private User ticket_assignedTo;
+    
+    @Column(nullable=false)
+    private String ticket_comment;
+    
+    @Column(nullable=false)
+    private Boolean ticket_deleted = false;
+    
+    @Column(name="deletedDate", nullable=true)
+    private LocalDateTime ticket_deletedDate;
+
+	public Long getTicket_id() {
+		return ticket_id;
 	}
-	public void setId(Long id) {
-		this.id = id;
+
+	public void setTicket_id(Long ticket_id) {
+		this.ticket_id = ticket_id;
 	}
-	public String getTitle() {
-		return title;
+
+	public String getTicket_title() {
+		return ticket_title;
 	}
-	public void setTitle(String title) {
-		this.title = title;
+
+	public void setTicket_title(String ticket_title) {
+		this.ticket_title = ticket_title;
 	}
-	public String getDescription() {
-		return description;
+
+	public String getTicket_description() {
+		return ticket_description;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+
+	public void setTicket_description(String ticket_description) {
+		this.ticket_description = ticket_description;
 	}
-	public TicketPriority getPriorityId() {
-		return priorityId;
+
+	public TicketPriority getTicket_priority() {
+		return ticket_priority;
 	}
-	public void setPriorityId(TicketPriority priorityId) {
-		this.priorityId = priorityId;
+
+	public void setTicket_priority(TicketPriority ticket_priority) {
+		this.ticket_priority = ticket_priority;
 	}
-	public TicketStatus getStatusId() {
-		return statusId;
+
+	public TicketStatus getTicket_status() {
+		return ticket_status;
 	}
-	public void setStatusId(TicketStatus statusId) {
-		this.statusId = statusId;
+
+	public void setTicket_status(TicketStatus ticket_status) {
+		this.ticket_status = ticket_status;
 	}
-	public User getCreatedBy() {
-		return createdBy;
+
+	public User getTicket_createdBy() {
+		return ticket_createdBy;
 	}
-	public void setCreatedBy(User createdBy) {
-		this.createdBy = createdBy;
+
+	public void setTicket_createdBy(User ticket_createdBy) {
+		this.ticket_createdBy = ticket_createdBy;
 	}
-	public LocalDateTime getCreatedDate() {
-		return createdDate;
+
+	public LocalDateTime getTicket_createdDate() {
+		return ticket_createdDate;
 	}
-	public void setCreatedDate(LocalDateTime createdDate) {
-		this.createdDate = createdDate;
+
+	public void setTicket_createdDate(LocalDateTime ticket_createdDate) {
+		this.ticket_createdDate = ticket_createdDate;
 	}
-	public LocalDateTime getModifiedDate() {
-		return modifiedDate;
+
+	public LocalDateTime getTicket_modifiedDate() {
+		return ticket_modifiedDate;
 	}
-	public void setModifiedDate(LocalDateTime modifiedDate) {
-		this.modifiedDate = modifiedDate;
+
+	public void setTicket_modifiedDate(LocalDateTime ticket_modifiedDate) {
+		this.ticket_modifiedDate = ticket_modifiedDate;
 	}
-	public User getAssignedTo() {
-		return assignedTo;
+
+	public User getTicket_assignedTo() {
+		return ticket_assignedTo;
 	}
-	public void setAssignedTo(User assignedTo) {
-		this.assignedTo = assignedTo;
+
+	public void setTicket_assignedTo(User ticket_assignedTo) {
+		this.ticket_assignedTo = ticket_assignedTo;
 	}
-	public String getComment() {
-		return comment;
+
+	public String getTicket_comment() {
+		return ticket_comment;
 	}
-	public void setComment(String comment) {
-		this.comment = comment;
+
+	public void setTicket_comment(String ticket_comment) {
+		this.ticket_comment = ticket_comment;
 	}
-	public Boolean getIsDeleted() {
-		return isDeleted;
+
+	public Boolean getTicket_deleted() {
+		return ticket_deleted;
 	}
-	public void setIsDeleted(Boolean isDeleted) {
-		this.isDeleted = isDeleted;
+
+	public void setTicket_deleted(Boolean ticket_deleted) {
+		this.ticket_deleted = ticket_deleted;
 	}
-	public LocalDateTime getDeletedDate() {
-		return deletedDate;
+
+	public LocalDateTime getTicket_deletedDate() {
+		return ticket_deletedDate;
 	}
-	public void setDeletedDate(LocalDateTime deletedDate) {
-		this.deletedDate = deletedDate;
+
+	public void setTicket_deletedDate(LocalDateTime ticket_deletedDate) {
+		this.ticket_deletedDate = ticket_deletedDate;
 	}
+
 }
