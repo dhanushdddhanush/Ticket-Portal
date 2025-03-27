@@ -1,54 +1,66 @@
 package com.ticket.entity;
 import java.time.LocalDateTime;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.swagger.v3.oas.annotations.media.Schema;
 @Entity
 @Table(name="ticket")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Id for the ticket")
     private Long ticket_id;
-    
+    @Schema(description = "Title for the ticket")
     @Column(nullable=false)
     private String ticket_title;
-    
+    @Schema(description = "Description for the ticket")
     @Column(nullable=false)
     private String ticket_description;
+    @Schema(description = "Foreign key Relation Ticket Priority Table to Ticket table")
     
     @ManyToOne
     @JoinColumn(name="priorityId", nullable=false)
     private TicketPriority ticket_priority;
-    
+    @Schema(description = "Foreign key Relation Ticket Status table to Ticket table")
     @ManyToOne
     @JoinColumn(name="statusId", nullable=false)
     private TicketStatus ticket_status;
+    @Schema(description = "Foreign key Relation CreatedBy to user table")
     
     @ManyToOne
     @JoinColumn(name="createdBy", nullable=false)
     private User ticket_createdBy;
+    @Schema(description = "Adding Local Time Stamp")
     
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime ticket_createdDate = LocalDateTime.now();
     
-
+    @Schema(description = "Updating modifiedDate When Updated")
+    
     @Column(name="modifiedDate", nullable=true)
     private LocalDateTime ticket_modifiedDate;
-    
+    @Schema(description = "Foreign key Relation assignedTo to user table")
     @ManyToOne
     @JoinColumn(name="assignedTo", nullable=false)
     private User ticket_assignedTo;
-    
+    @Schema(description = "Adding Ticket Comments")
     @Column(nullable=false)
     private String ticket_comment;
-    
+    @Schema(description = "Ticket Deleted Or Not")
     @Column(nullable=false)
     private Boolean ticket_deleted = false;
-    
+    @Schema(description = " When Ticket Deleted Time Stamp")
     @Column(name="deletedDate", nullable=true)
     private LocalDateTime ticket_deletedDate;
 

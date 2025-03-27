@@ -1,12 +1,21 @@
 package com.ticket.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class TicketMaps {
+    @Schema(description = "Title of the Ticket")
 	 private String ticket_title;
+    @Schema(description = "Description of the Ticket")
 	 private String ticket_description;
+    @Schema(description = "Ticket created by which user")
 	 private Long ticket_createdBy;
+    @Schema(description = "Priority of the Ticket")
 	 private Long ticketPriority_id;
+	 @Schema(description = "Assigned To which user")
 	 private Long ticket_assignedTo;
+	  @Schema(description = "Status of the Ticket")
 	 private Long ticketStatus_id;
+	  @Schema(description = "Comment for the Ticket")
 	 private String ticket_comment;
 	public String getTicket_title() {
 	return ticket_title;

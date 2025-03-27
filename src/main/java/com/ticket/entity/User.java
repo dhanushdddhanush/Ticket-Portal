@@ -1,35 +1,45 @@
 package com.ticket.entity;
 import java.util.List;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 
 @Entity
 @Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Id for the user")
     private Long user_id;
-
+    @Schema(description = "Name of the user")
     @Column(nullable = false)
     private String  name;
-    
+    @Schema(description = "UserName of the user")
     @Column(nullable = false)
     private String userName;
-    
+    @Schema(description = "Email of the user")
     @Column(nullable = false, unique = true)
     private String email;
-   
+    @Schema(description = "Department of the user")
     @Column(nullable = false)
     private String department;
-    
+    @Schema(description = "PhoneNumber of the user")
     @Column(nullable = false, unique = true)
     private Long phone;
-   
+    @Schema(description = "Password of the user")
     @Column(nullable = false)
     private String password;
-
+    @Schema(description = "Realtion with user and role")
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
     private List<Role> roles;

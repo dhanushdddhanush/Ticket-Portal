@@ -20,21 +20,58 @@ import com.ticket.entity.UserRoles;
 import com.ticket.repository.RoleRepository;
 import com.ticket.repository.UserRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+/**
+ * REST Controller for handling user-related operations.
+ * Provides CRUD functionality for users including creation, getting,
+ * and deletion of user .
+ * 
+ * Cross-origin requests are allowed from specified frontend urls.
+ */
+@RestController
 @RequestMapping("/user")
 
 @CrossOrigin(origins = {"http://localhost:5173","http://localhost:5174"}) 
-@RestController
+
+@Tag(name="User Controller", description="APIs for user table here we have GET,POST,PUT,DELETE call of users ")
+
 public class UserController {
 	@Autowired
 	UserRepository userRepositoryObj;
 	@Autowired
 	RoleRepository roleRepositoryObj;
+	 /**
+     * Retrieves all users.
+     * 
+     * @return List of all User with their associated roles
+     * @throws RuntimeException if no users are found
+     */
+	@Operation(summary = "Get operation for users", description = "Get call for fetching all users")
+	@ApiResponse(responseCode = "200", description = "found", content = @Content(schema = @Schema(implementation = String.class)))
+	@ApiResponse(responseCode = "404", description = "Method not found")
+	@ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = String.class)))
+	
 	
 	 @GetMapping()
     public List<User> getAllUsers() {
         return userRepositoryObj.findAll();
     }
-	 
+	/**
+     * Creates a new user with role.
+     * 
+     * @param userRoles DTO containing user information .
+     * @return The newly created User .
+     * @throws RuntimeException if required fields are missing or invalid
+     */
+	@Operation(summary = "Post operation for users", description = "post call for adding new  users")
+	@ApiResponse(responseCode = "200", description = "found", content = @Content(schema = @Schema(implementation = String.class)))
+	@ApiResponse(responseCode = "404", description = "Method not found")
+	@ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = String.class)))
+	
 	 @PostMapping("/add")
 	    @ResponseStatus(code = HttpStatus.CREATED)
 	    public User createUser(@RequestBody UserRoles userRoles) {
@@ -50,6 +87,16 @@ public class UserController {
 	        roleRepositoryObj.save(role);
 	        return user;
 	    }
+	@Operation(summary = "Delete operation for users", description = "Delete call for deleting users")
+	@ApiResponse(responseCode = "200", description = "found", content = @Content(schema = @Schema(implementation = String.class)))
+	@ApiResponse(responseCode = "404", description = "Method not found")
+	@ApiResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = String.class)))
+	/**
+     * Deletes a user .
+     * 
+     * @param id The ID of the user to delete
+     * @throws RuntimeException if user with given ID is not found
+     */
 	@DeleteMapping("/user/delete/{id}")
     public void removeUser(@PathVariable Long id) {
 		userRepositoryObj.deleteById(id);

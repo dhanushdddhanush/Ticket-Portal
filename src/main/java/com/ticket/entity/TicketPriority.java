@@ -1,11 +1,20 @@
 package com.ticket.entity;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 @Entity
 @Table(name="ticketPriority")
 public class TicketPriority {
  @Id
  @GeneratedValue(strategy = GenerationType.IDENTITY)
+ @Schema(description = "Id for the ticket Priority")
  private Long ticketPriority_id;
+ @Schema(description = "Description for the Priority")
  @Column(nullable=false)
  private String  ticketPriority_description;
 public Long getTicketPriority_id() {

@@ -1,12 +1,21 @@
 package com.ticket.entity;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class UserRoles {
+	  @Schema(description = "Name of the user")
 	 private String name;
+	  @Schema(description = "UserName of the user")
 	 private String userName;
+	  @Schema(description = "Email of the user")
 	 private String email;
+	  @Schema(description = "Department of the user")
 	 private String department;
+	  @Schema(description = "Phone of the user")
 	 private Long phone;
+	  @Schema(description = "Password of the user")
 	 private String password;
+	  @Schema(description = "Role of the user")
 	 private String role;
 	public String getName() {
 		return name;
