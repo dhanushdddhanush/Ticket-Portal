@@ -1,5 +1,6 @@
 package com.ticket.controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -71,6 +73,40 @@ public class TicketController {
 	    ticketRepositoryObj.save(ticket);
 	    return ticket;
 	}
+	@PutMapping("/{ticket_id}")
+	public Ticket updateTicket(
+	    @PathVariable Long ticket_id,
+	    @RequestBody TicketMaps ticketMaps
+	) {
+	    Ticket ticket = ticketRepositoryObj.findById(ticket_id)
+	        .orElseThrow(() -> new RuntimeException("Ticket not found"));
+
+	    // Update basic fields (assumes all fields are provided)
+	    ticket.setTicket_title(ticketMaps.getTicket_title());
+	    ticket.setTicket_description(ticketMaps.getTicket_description());
+	    ticket.setTicket_comment(ticketMaps.getTicket_comment());
+	    ticket.setTicket_modifiedDate(LocalDateTime.now());
+
+	    // Update relationships (IDs only, assumes all are provided)
+	    User createdBy = new User();
+	    createdBy.setUser_id(ticketMaps.getTicket_createdBy());
+	    ticket.setTicket_createdBy(createdBy);
+
+	    User assignedTo = new User();
+	    assignedTo.setUser_id(ticketMaps.getTicket_assignedTo());
+	    ticket.setTicket_assignedTo(assignedTo);
+
+	    TicketPriority priority = new TicketPriority();
+	    priority.setTicketPriority_id(ticketMaps.getTicketPriority_id());
+	    ticket.setTicket_priority(priority);
+
+	    TicketStatus status = new TicketStatus();
+	    status.setTicketStatus_id(ticketMaps.getTicketStatus_id());
+	    ticket.setTicket_status(status);
+
+	    return ticketRepositoryObj.save(ticket);
+	}
+	
 	@DeleteMapping("/delete/{id}")
     public void removeUser(@PathVariable Long id) {
 		ticketRepositoryObj.deleteById(id);
