@@ -46,6 +46,12 @@ public class TicketController {
 		return ticketRepositoryObj.findAll();
 	
 	}
+	@GetMapping("/{ticket_id}")
+	public Ticket getTicketById(@PathVariable Long ticket_id) {
+	    return ticketRepositoryObj.findById(ticket_id)
+	        .orElseThrow(() -> new RuntimeException("Ticket not found"));
+	}
+
 	@PostMapping("/add")
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Ticket createTicket(@RequestBody TicketMaps ticketMaps) {
@@ -81,13 +87,13 @@ public class TicketController {
 	    Ticket ticket = ticketRepositoryObj.findById(ticket_id)
 	        .orElseThrow(() -> new RuntimeException("Ticket not found"));
 
-	    // Update basic fields (assumes all fields are provided)
+	   
 	    ticket.setTicket_title(ticketMaps.getTicket_title());
 	    ticket.setTicket_description(ticketMaps.getTicket_description());
 	    ticket.setTicket_comment(ticketMaps.getTicket_comment());
 	    ticket.setTicket_modifiedDate(LocalDateTime.now());
 
-	    // Update relationships (IDs only, assumes all are provided)
+	  
 	    User createdBy = new User();
 	    createdBy.setUser_id(ticketMaps.getTicket_createdBy());
 	    ticket.setTicket_createdBy(createdBy);
