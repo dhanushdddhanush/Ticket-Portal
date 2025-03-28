@@ -14,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
+/**
+ * Role entity which have roles like admin, developer, tester
+ */
 @Entity
 @Table(name = "roles")
 public class Role {

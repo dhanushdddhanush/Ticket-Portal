@@ -7,6 +7,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+/**
+ * TicketPriority entity with priorities like high, medium , low
+ */
 @Entity
 @Table(name="ticketPriority")
 public class TicketPriority {

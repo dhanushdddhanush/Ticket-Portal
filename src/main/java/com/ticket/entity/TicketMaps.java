@@ -2,6 +2,9 @@ package com.ticket.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * TicketMaps DTO which helps for post and put call of tickets 
+ */
 public class TicketMaps {
     @Schema(description = "Title of the Ticket")
 	 private String ticket_title;
@@ -17,6 +20,7 @@ public class TicketMaps {
 	 private Long ticketStatus_id;
 	  @Schema(description = "Comment for the Ticket")
 	 private String ticket_comment;
+	 private String email;
 	public String getTicket_title() {
 	return ticket_title;
 	}
@@ -58,6 +62,12 @@ public class TicketMaps {
 	}
 	public void setTicket_comment(String ticket_comment) {
 		this.ticket_comment = ticket_comment;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	 
 	 

@@ -14,6 +14,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * User entity which have user data
+ */
 @Entity
 @Table(name = "users")
 public class User {

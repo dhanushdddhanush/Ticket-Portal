@@ -2,6 +2,9 @@ package com.ticket.entity;
 import javax.persistence.*;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+/**
+ * TicketStatus entity with status like open, closed
+ */
 @Entity
 @Table(name="ticketStatus")
 public class TicketStatus {

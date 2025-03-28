@@ -13,6 +13,10 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+
+/**
+ * Ticket entity here we have all the columns neccessary for ticket creation
+ */
 @Entity
 @Table(name="ticket")
 public class Ticket {

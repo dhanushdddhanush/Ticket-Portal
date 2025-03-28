@@ -2,6 +2,9 @@ package com.ticket.entity;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+/**
+ * UserRoles Dto 
+ */
 public class UserRoles {
 	  @Schema(description = "Name of the user")
 	 private String name;
