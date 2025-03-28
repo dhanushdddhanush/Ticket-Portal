@@ -1,10 +1,4 @@
-insert into users values(1,'Admin','admin@questk2.com','Admin','password',9999999999,'admin1'),(2,'Developer','developer@questk2.com','Developer','password1',8999999999,'devloper1'),(3,'Tester','tester@questk2.com','Tester','password1222',7999999999,'tester1');
-select * from users;
 insert into ticket_priority values(1,'High_Priority'),(2,'Medium_Priority'),(3,'Low_Priority');
 select * from ticket_priority;
-insert into ticket_status values(1,'Started'),(2,'Completed');
+insert into ticket_status values(1,'New'),(2,'Open'),(3,'Closed');
 select * from ticket_status;
-insert into roles values(1,'Admin',1),(2,'Developer',2),(3,'Tester',3);
-select * from roles;
-insert into ticket values(1,'Done',now(),null,'LoginBug',false,null,'Login',1,2,1,1);
-select* from ticket;
