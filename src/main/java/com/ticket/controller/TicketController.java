@@ -202,7 +202,7 @@ public class TicketController {
 	    Ticket ticket = ticketRepositoryObj.findById(id)
 	        .orElseThrow(() -> new RuntimeException("Ticket not found"));
 	    
-	    // Soft delete - mark as deleted and set deletion timestamp
+	    
 	    ticket.setTicket_deleted(true);
 	    ticket.setTicket_deletedDate(LocalDateTime.now());
 	    
