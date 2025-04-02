@@ -2,6 +2,7 @@ package com.ticket.controller;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -67,9 +68,21 @@ public class TicketController {
 	
 	@GetMapping()
 	public List<Ticket> getAllTickets(){
-		return ticketRepositoryObj.findAll();
+		return ticketRepositoryObj.findAllActiveTickets();
 	
 	}
+	 @GetMapping("/my-tickets/{userId}")
+	    public List<Ticket> getTicketsForUser(@PathVariable Long userId) {
+	        return ticketRepositoryObj.findByCreatedByOrAssignedTo(userId)
+	               .stream()
+	               .filter(ticket -> !ticket.getTicket_deleted())  // Exclude deleted tickets for users
+	               .collect(Collectors.toList());
+	    }
+	 @GetMapping("/admin/all-tickets")
+	 public List<Ticket> getAllTicketsForAdmin() {
+	     return ticketRepositoryObj.findAllTicketsIncludingDeleted();
+	 }
+
 	/**
      * Retrieves a specific ticket by its ID.
      * 
@@ -185,8 +198,15 @@ public class TicketController {
 	
 	
 	@DeleteMapping("/delete/{id}")
-    public void removeUser(@PathVariable Long id) {
-		ticketRepositoryObj.deleteById(id);
-    }
+	public void removeTicket(@PathVariable Long id) {
+	    Ticket ticket = ticketRepositoryObj.findById(id)
+	        .orElseThrow(() -> new RuntimeException("Ticket not found"));
+	    
+	    // Soft delete - mark as deleted and set deletion timestamp
+	    ticket.setTicket_deleted(true);
+	    ticket.setTicket_deletedDate(LocalDateTime.now());
+	    
+	    ticketRepositoryObj.save(ticket);
+	}
 
 }

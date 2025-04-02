@@ -1,5 +1,6 @@
 package com.ticket.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ticket.entity.Role;
 import com.ticket.entity.User;
+import com.ticket.entity.UserInfo;
 import com.ticket.entity.UserRoles;
 import com.ticket.repository.RoleRepository;
 import com.ticket.repository.UserRepository;
@@ -60,6 +62,21 @@ public class UserController {
     public List<User> getAllUsers() {
         return userRepositoryObj.findAll();
     }
+	@GetMapping("/basic-info")
+	public List<UserInfo> getBasicUserInfo() {
+	    List<User> users = userRepositoryObj.findAll();
+	    List<UserInfo> result = new ArrayList<>();
+	    
+	    for (User user : users) {
+	        result.add(new UserInfo(
+	            user.getUser_id(),
+	            user.getUserName(),
+	            user.getName()
+	        ));
+	    }
+	    
+	    return result;
+	}
 	/**
      * Creates a new user with role.
      * 
