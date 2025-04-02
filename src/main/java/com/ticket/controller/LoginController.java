@@ -34,19 +34,19 @@ public class LoginController {
     @ApiResponse(responseCode = "404", description = "User not found")
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest) {
-        // Find user by email
+        
         User user = userRepository.findByEmail(loginRequest.getEmail());
         
         if (user == null) {
             return ResponseEntity.status(404).body("User not found");
         }
         
-        // Verify password (in real application, use password encoder)
+        
         if (!user.getPassword().equals(loginRequest.getPassword())) {
             return ResponseEntity.status(401).body("Invalid credentials");
         }
         
-        // Get user role
+     
         Role role = roleRepository.findByUser(user);
         if (role == null) {
             return ResponseEntity.status(401).body("No role assigned to user");
