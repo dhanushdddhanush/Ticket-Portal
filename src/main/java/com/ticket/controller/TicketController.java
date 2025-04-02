@@ -71,13 +71,11 @@ public class TicketController {
 		return ticketRepositoryObj.findAllActiveTickets();
 	
 	}
-	 @GetMapping("/my-tickets/{userId}")
-	    public List<Ticket> getTicketsForUser(@PathVariable Long userId) {
-	        return ticketRepositoryObj.findByCreatedByOrAssignedTo(userId)
-	               .stream()
-	               .filter(ticket -> !ticket.getTicket_deleted())  // Exclude deleted tickets for users
-	               .collect(Collectors.toList());
-	    }
+	@GetMapping("/my-tickets/{userId}")
+	public List<Ticket> getTicketsForUser(@PathVariable Long userId) {
+	    return ticketRepositoryObj.findActiveTicketsForUser(userId);
+	}
+
 	 @GetMapping("/admin/all-tickets")
 	 public List<Ticket> getAllTicketsForAdmin() {
 	     return ticketRepositoryObj.findAllTicketsIncludingDeleted();

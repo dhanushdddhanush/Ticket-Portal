@@ -16,5 +16,8 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 	List<Ticket> findAllActiveTickets();
 	@Query("SELECT t FROM Ticket t")
 	List<Ticket> findAllTicketsIncludingDeleted();
+	@Query("SELECT t FROM Ticket t WHERE (t.ticket_createdBy.user_id = :userId OR t.ticket_assignedTo.user_id = :userId) AND t.ticket_deleted = false")
+	List<Ticket> findActiveTicketsForUser(@Param("userId") Long userId);
+
 
 }
