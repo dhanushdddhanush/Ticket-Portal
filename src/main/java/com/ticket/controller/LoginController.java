@@ -52,7 +52,7 @@ public class LoginController {
             return ResponseEntity.status(401).body("No role assigned to user");
         }
         
-        // Create response with user and role information
+       
         LoginResponse response = new LoginResponse();
         response.setUserId(user.getUser_id());
         response.setName(user.getName());
